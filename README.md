@@ -1,69 +1,67 @@
-## Atiqur Rahman
+<h1 align="center">Atiqur Rahman</h1>
 
-Android engineer at **MEGA** — privacy-first cloud storage for 10M+ people. I make sync reliable
-and cold starts fast.
+<p align="center">
+  <b>Senior Android Engineer @ MEGA</b> — privacy-first cloud storage for 10M+ people<br>
+  I make sync reliable and cold starts fast.
+</p>
 
-Kotlin and Compose day to day, and a lot of time in the parts of Android that buckle under
-real-world load: background work, file I/O, sync. I like problems where the fix is measurable —
-most of mine turn out to be threading, caching, or deleting a layer that shouldn't have existed.
-
-### What I build
-
-**Sync & Backup** on MEGA Android — folder pickers, Cloud Explorer integration, Sync Dashboard,
-Device Center. Two-way sync is unforgiving: most of the work is conflict handling and keeping
-state you can actually trust.
-
-**Camera Uploads** — re-architected off a legacy engine onto Clean Architecture and Coroutines,
-upload worker extracted into its own data module, cross-folder conflict detection added.
-
-```mermaid
-flowchart LR
-    A["New media<br/>on device"] --> B{"Already synced<br/>in any folder?"}
-    B -->|yes| C["Skip"]
-    B -->|no| D["Upload worker<br/>own data module"]
-    D --> E["MEGA SDK"]
-    E --> F[("Cloud")]
-```
-
-<sub>Camera Uploads after the re-architecture — simplified.</sub>
-
-**A Compose PDF viewer**, from scratch, with an in-document search engine on PdfiumCore — which
-meant first contributing native text extraction and search (JNI) upstream to PdfiumAndroid.
-
-### Things I made faster
-
-- **Upload crashes −35%** — the Camera Uploads re-architecture above
-- **Directory listing +40%** — fewer Storage Access Framework IPC round trips, cached single-child lookups
-- **ANR rate −30%** — fixed Camera Uploads preference reads and `Sync` repository threading, made eager sync flows lazy
-- **Cold start −20%** — pre-loaded the MEGA SDK native library off the main thread, kept credential and preferences gateways out of the startup path
-
-### Working with
-
-- **Daily** — Kotlin · Jetpack Compose · Coroutines/Flow · Hilt · WorkManager · Room · Retrofit · Material 3
-- **Shape of the code** — Clean Architecture · multi-module · dependency injection
-- **Tests** — JUnit · Turbine · Robolectric · Espresso
-- **Also** — Kotlin Multiplatform · Flutter · Java · Dart
-
-<details>
-<summary><b>How I usually find an Android performance bug</b></summary>
-
-<br/>
-
-Nearly every one I've fixed turned out to be one of four things:
-
-1. **Wrong thread** — something blocking on the main thread that had no business being there. Native library loads and preference reads are the usual suspects.
-2. **Per-item IPC** — an abstraction that looks like a list but crosses a process boundary once per element. Storage Access Framework is famous for this.
-3. **Eager work** — initialised at startup because it was easier than working out when it's actually needed.
-4. **No cache** — the same answer computed repeatedly because nobody measured how often it was asked for.
-
-None of that shows up in code review. It shows up in Play Console vitals and a systrace, which is why I go there first and form an opinion second.
-
-</details>
-
-**Now** — going deeper on Kotlin Multiplatform, and letting AI tooling take the boring half of the
-work. Before MEGA I spent six years leading mobile teams at Monstarlab, shipping client apps end
-to end.
+<p align="center">
+  <a href="https://www.linkedin.com/in/atiqur-rahman-ab267379"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"></a>
+  <a href="mailto:atiq.it@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white"></a>
+  <img alt="Based in Bangladesh, working remotely" src="https://img.shields.io/badge/Bangladesh%20%C2%B7%20Remote-2F6F62?style=for-the-badge">
+</p>
 
 ---
 
-[Email](mailto:atiq.it@gmail.com) · [LinkedIn](https://www.linkedin.com/in/atiqur-rahman-ab267379)
+- 🔭 **Currently** — Sync & Backup on MEGA Android: folder pickers, Cloud Explorer, Sync Dashboard, Device Center
+- ⚡ **Focus** — where Android buckles under real load: background work, file I/O, cold start, ANRs
+- 🌱 **Learning** — Kotlin Multiplatform, and how much of the boring half AI tooling can take
+- 💬 **Ask me about** — Compose, WorkManager, Storage Access Framework, or why an app takes two seconds to start
+
+### 🛠️ Stack
+
+**Languages**<br>
+<img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white">
+<img alt="Java" src="https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white">
+<img alt="Dart" src="https://img.shields.io/badge/Dart-0175C2?style=flat-square&logo=dart&logoColor=white">
+
+**Android**<br>
+<img alt="Jetpack Compose" src="https://img.shields.io/badge/Jetpack%20Compose-4285F4?style=flat-square&logo=jetpackcompose&logoColor=white">
+<img alt="Coroutines and Flow" src="https://img.shields.io/badge/Coroutines%20%2F%20Flow-2F6F62?style=flat-square">
+<img alt="Hilt" src="https://img.shields.io/badge/Hilt-2F6F62?style=flat-square">
+<img alt="WorkManager" src="https://img.shields.io/badge/WorkManager-2F6F62?style=flat-square">
+<img alt="Room" src="https://img.shields.io/badge/Room-2F6F62?style=flat-square">
+<img alt="Retrofit" src="https://img.shields.io/badge/Retrofit-2F6F62?style=flat-square">
+<img alt="Material 3" src="https://img.shields.io/badge/Material%203-757575?style=flat-square&logo=materialdesign&logoColor=white">
+
+**Architecture &amp; testing**<br>
+<img alt="Clean Architecture" src="https://img.shields.io/badge/Clean%20Architecture-2F6F62?style=flat-square">
+<img alt="Multi-module" src="https://img.shields.io/badge/Multi--module-2F6F62?style=flat-square">
+<img alt="JUnit" src="https://img.shields.io/badge/JUnit-25A162?style=flat-square&logo=junit5&logoColor=white">
+<img alt="Turbine" src="https://img.shields.io/badge/Turbine-2F6F62?style=flat-square">
+<img alt="Robolectric" src="https://img.shields.io/badge/Robolectric-2F6F62?style=flat-square">
+<img alt="Espresso" src="https://img.shields.io/badge/Espresso-2F6F62?style=flat-square">
+
+**Tooling &amp; cross-platform**<br>
+<img alt="Gradle" src="https://img.shields.io/badge/Gradle-02303A?style=flat-square&logo=gradle&logoColor=white">
+<img alt="Git" src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white">
+<img alt="Firebase" src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black">
+<img alt="Kotlin Multiplatform" src="https://img.shields.io/badge/Kotlin%20Multiplatform-7F52FF?style=flat-square&logo=kotlin&logoColor=white">
+<img alt="Flutter" src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white">
+
+### 📈 Measured at MEGA
+
+| What | Change | How |
+| :-- | :-- | :-- |
+| Upload crashes | **▼ 35%** | Camera Uploads re-architected onto Clean Architecture + Coroutines, upload worker in its own module |
+| Directory listing | **▲ 40%** | Cut Storage Access Framework IPC round trips, cached single-child lookups |
+| ANR rate | **▼ 30%** | Fixed `Sync` repository and Camera Uploads preference threading; made eager sync flows lazy |
+| Cold start | **▼ 20%** | MEGA SDK native library preloaded off the main thread, credential and preferences gateways cached |
+
+### 🧩 Also built
+
+- **Jetpack Compose PDF viewer** from scratch, with an in-document search engine on PdfiumCore
+- **Native text extraction &amp; search (JNI)** contributed upstream to PdfiumAndroid
+- **Material 3 migration** and modularization into shared feature modules across a large multi-module codebase
+
+<sub>Ten years on Android — six of them leading mobile teams at Monstarlab before MEGA.</sub>
