@@ -16,6 +16,17 @@ state you can actually trust.
 **Camera Uploads** — re-architected off a legacy engine onto Clean Architecture and Coroutines,
 upload worker extracted into its own data module, cross-folder conflict detection added.
 
+```mermaid
+flowchart LR
+    A["New media<br/>on device"] --> B{"Already synced<br/>in any folder?"}
+    B -->|yes| C["Skip"]
+    B -->|no| D["Upload worker<br/>own data module"]
+    D --> E["MEGA SDK"]
+    E --> F[("Cloud")]
+```
+
+<sub>Camera Uploads after the re-architecture — simplified.</sub>
+
 **A Compose PDF viewer**, from scratch, with an in-document search engine on PdfiumCore — which
 meant first contributing native text extraction and search (JNI) upstream to PdfiumAndroid.
 
@@ -33,16 +44,25 @@ meant first contributing native text extraction and search (JNI) upstream to Pdf
 - **Tests** — JUnit · Turbine · Robolectric · Espresso
 - **Also** — Kotlin Multiplatform · Flutter · Java · Dart
 
-### On this account
+<details>
+<summary><b>How I usually find an Android performance bug</b></summary>
 
-The production work lives in MEGA's private codebase, so most of what's here is forks I've read
-through. The originals worth a look:
+<br/>
 
-- [ResultAPIDemo](https://github.com/atiqaraj/ResultAPIDemo) — the Activity Result API, written when `onActivityResult()` was deprecated
-- [EspressoExample](https://github.com/atiqaraj/EspressoExample) — instrumented UI testing patterns
-- [firebaseauth](https://github.com/atiqaraj/firebaseauth) — Firebase Authentication reference app
+Nearly every one I've fixed turned out to be one of four things:
 
-Before MEGA I spent six years leading mobile teams at Monstarlab, shipping client apps end to end.
+1. **Wrong thread** — something blocking on the main thread that had no business being there. Native library loads and preference reads are the usual suspects.
+2. **Per-item IPC** — an abstraction that looks like a list but crosses a process boundary once per element. Storage Access Framework is famous for this.
+3. **Eager work** — initialised at startup because it was easier than working out when it's actually needed.
+4. **No cache** — the same answer computed repeatedly because nobody measured how often it was asked for.
+
+None of that shows up in code review. It shows up in Play Console vitals and a systrace, which is why I go there first and form an opinion second.
+
+</details>
+
+**Now** — going deeper on Kotlin Multiplatform, and letting AI tooling take the boring half of the
+work. Before MEGA I spent six years leading mobile teams at Monstarlab, shipping client apps end
+to end.
 
 ---
 
